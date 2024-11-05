@@ -9,6 +9,30 @@
 <body>
 <header id="header">
     <span class="logo">Booksmarks</span>
+    {% if request.user.is_authicate %}
+        <ul class="menu">
+            <li {% if section == "dashboard" %} class="selected" {% endif %}>
+                 <a href="{% url "dashboard" %}">str gluwna</a>
+            </li>
+            <li {% if section == "images" %} class="selected" {% endif %}>
+                <a href="{% url "images" %}">Zdjencia</a>
+            </li>
+            <li {% if section == "pople" %} class="selected" {% endif %}>
+                <a href="{% url "pople" %}">Ludzie</a>
+            </li>
+        </ul>
+{% endif %}
+    <span class="user">
+        {% if user.is_authenticated %}
+        Czesc, {{ request.user.first_name|default:request.user.username }},
+        <form action="{% url "logout" %}" method="post">
+            <button type="submit">Wyloguj</button>
+            {% csrf_token %}
+        </form>
+        {% else %}
+            <a href="{% url 'login' %}"></a>
+        {% endif %}
+    </span>
 </header>
 <main id="content">
     {% block content %}
