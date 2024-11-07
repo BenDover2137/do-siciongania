@@ -4,7 +4,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 
-from account.forms import LoginForm, UserRegistrationForm
+from account.forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
+from account.models import Profile
 
 
 def user_login(request):
@@ -36,7 +37,18 @@ def register(request):
             new_user=user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
+            Profile.objects.create(user=new_user)
             return render(request,'account/registration_done.html', {'user_form': user_form})
     else:
         user_form=UserRegistrationForm
     return render(request, 'account/registration.html', {'user_form': user_form})
+
+@login_required
+def edit(request):
+    if request.method=='POST':
+        pass
+    else:
+        user_form=UserEditForm(instance=request.user)
+        profile_form=ProfileEditForm(instance=request.user.profile)
+    return render(request,'account/edit.html',
+                  {'user_form':user_form,'profile_form':profile_form})
