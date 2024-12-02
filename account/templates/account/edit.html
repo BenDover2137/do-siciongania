@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}
-    edytuj swoje dane
+	Edytuj swoje dane
 {% endblock %}
 
 {% block content %}
-    <h1>edytuj swoje dane</h1>
+    <h1>Edytuj swoje dane</h1>
     <form method="post" enctype="multipart/form-data">
-        {{  user_form.as_p }}
+        {{ user_form.as_p }}
         {{ profile_form.as_p }}
         {% csrf_token %}
-        <p><input type="submit" value="zapisz zmiany"></p>
+        <p><input type="submit" value="Zapisz zmiany"></p>
     </form>
+
 {% endblock %}

@@ -1,10 +1,19 @@
 {% extends "base.html" %}
 {% block title %}
-    strona glowna
+	Strona główna
 {% endblock %}
 
 {% block content %}
-    <h1>strona glowna</h1>
-    <p>Witaj</p>
+    <h1>Strona główna</h1>
+    {% with total_images_created=request.user.images_created.count %}
+    <p>Witaj na stronie głównej. Tutaj możesz <a href="{% url "edit" %}">edytować swoje konto</a>
+    Do tej pory zapisałeś {{ total_images_created }} zdjęć.
+    </p>
 
+     <p>
+     Przeciągnij poniższy przycisk do paska zakładek aby dodawać zdjęcia z innych stron ->
+     <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">Bookmarklet</a>
+     </p>
+    
+    {% endwith %}
 {% endblock %}
